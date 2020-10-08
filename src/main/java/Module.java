@@ -24,16 +24,10 @@ public class Module {
 
     // Add student to list
     public void addStudentsToModule(Student s) {
-        if(listOfStudents.contains(s)){
-            return;
-        }
         listOfStudents.add(s);
     }
 
     public void removeStudentFromModule(Student s) {
-        if(!listOfStudents.contains(s)){
-            return;
-        }
         listOfStudents.remove(s);
     }
 
@@ -54,19 +48,11 @@ public class Module {
     }
 
     public void addCourse(Programme p) {
-        if(coursesAssociated.contains(p)){
-            return;
-        }
         coursesAssociated.add(p);
-        p.addModule(this);
     }
 
     public void removeCourse(Programme p) {
-        if(!coursesAssociated.contains(p)){
-            return;
-        }
         coursesAssociated.remove(p);
-        p.removeModuleFromCourse(this);
     }
 
     @Override
@@ -87,7 +73,7 @@ public class Module {
     @Override
     public String toString() {
         return "Module{" +
-                "id='" + id + '\'' +
+                "id='" + id  +
                 ", listOfStudents=" + listOfStudents +
                 ", coursesAssociated=" + coursesAssociated +
                 '}';

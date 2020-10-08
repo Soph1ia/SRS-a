@@ -34,6 +34,7 @@ public class StudentTest {
         //Given
         student1.addModule(ct417_module);
         Module expectedModule = new Module("CT417");
+        ct417_module.addStudentsToModule(student1);
         //When
         List<Module> actualModules = student1.getModulesEnrolled();
         //Then

@@ -65,20 +65,12 @@ public class Student {
 
     // Add more modules to list
     public void addModule(Module m) {
-        if(modulesEnrolled.contains(m)){
-            return;
-        }
         modulesEnrolled.add(m);
-        m.addStudentsToModule(this);
     }
 
     // remove certain modules from list
     public void removeStudentFromModule(Module m) {
-        if(!modulesEnrolled.contains(m)){
-            return;
-        }
         modulesEnrolled.remove(m);
-        m.removeStudentFromModule(this);
     }
 
     public Programme getCourse() {
@@ -87,7 +79,6 @@ public class Student {
 
     public void setCourse(Programme course) {
         this.course = course;
-        course.addStudentsToCourse(this);
     }
 
     public void removeFromCourse(){
@@ -112,7 +103,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "name='" + name + '\'' +
+                "name='" + name +
                 ", age=" + age +
                 ", dob=" + dob +
                 ", id=" + id +

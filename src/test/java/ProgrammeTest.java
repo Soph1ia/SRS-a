@@ -26,6 +26,7 @@ public class ProgrammeTest {
         //When
         List<Student> actualResult = bct_course.getListOfStudents();
         //Then
+        System.out.println(student1.toString());
         assert (actualResult.contains(student1));
         assertFalse(actualResult.contains(student2));
     }

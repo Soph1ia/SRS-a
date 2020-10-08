@@ -36,6 +36,7 @@ public class ModuleTest {
         //Given
         ct417_module.addCourse(bct_course);
         ct417_module.addCourse(ece_course);
+        bct_course.addModule(ct417_module);
         //When
         List<Programme> actualResult = ct417_module.getCoursesAssociated();
         //Then

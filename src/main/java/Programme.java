@@ -38,19 +38,13 @@ public class Programme {
     }
 
     public void addModule(Module m) {
-        if(listOfModules.contains(m)){
-            return;
-        }
+
         listOfModules.add(m);
-        m.addCourse(this);
     }
 
     public void removeModuleFromCourse(Module m) {
-        if(!listOfModules.contains(m)){
-            return;
-        }
+
         listOfModules.remove(m);
-        m.removeCourse(this);
     }
 
     public List<Student> getListOfStudents() {
@@ -62,19 +56,11 @@ public class Programme {
     }
 
     public void addStudentsToCourse(Student s) {
-        if(listOfStudents.contains(s)){
-            return;
-        }
         listOfStudents.add(s);
-        s.setCourse(this);
     }
 
     public void removeStudentFromCourse(Student s) {
-        if(!listOfStudents.contains(s)){
-            return;
-        }
         listOfStudents.remove(s);
-        s.removeFromCourse();
     }
 
     public DateTime getStartDate() {
@@ -111,7 +97,7 @@ public class Programme {
     @Override
     public String toString() {
         return "Programme{" +
-                "courseName='" + courseName + '\'' +
+                "courseName='" + courseName  +
                 ", listOfModules=" + listOfModules +
                 ", listOfStudents=" + listOfStudents +
                 ", startDate=" + startDate +
