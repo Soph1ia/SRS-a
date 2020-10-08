@@ -1,17 +1,17 @@
 import org.joda.time.DateTime;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.Assert.assertFalse;
 
-class ProgrammeTest {
+public class ProgrammeTest {
     private Student student1,student2;
     private Module ct417_module;
     private Programme bct_course;
 
-    @BeforeEach
+    @Before
     public void setup() {
         student1 = new Student("test1", 22, "12/10/1997", 123123);
         student2 = new Student("test2", 30, "12/01/1990", 555555);
