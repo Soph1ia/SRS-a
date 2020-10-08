@@ -11,5 +11,6 @@ build:
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-
+    - mvn test
     - cp -r target shippable/codecoverage
+    - mvn clean cobertura:cobertura
