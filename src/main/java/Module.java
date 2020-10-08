@@ -9,8 +9,8 @@ public class Module {
 
     public Module(String id) {
         this.id = id;
-        this.coursesAssociated = new ArrayList<Programme>();
-        this.listOfStudents = new ArrayList<Student>();
+        this.coursesAssociated = new ArrayList<>();
+        this.listOfStudents = new ArrayList<>();
     }
 
     //Getters and Setters
@@ -24,11 +24,22 @@ public class Module {
 
     // Add student to list
     public void addStudentsToModule(Student s) {
-        listOfStudents.add(s);
+        if (!listOfStudents.contains(s)) {
+            listOfStudents.add(s);
+            s.addModule(this);
+            if (s.getCourse() != null) {
+                if (!coursesAssociated.contains(s.getCourse())) { // does not contain
+                    coursesAssociated.add(s.getCourse()); // add to list the module is associated with
+                }
+            }
+        }
     }
 
     public void removeStudentFromModule(Student s) {
-        listOfStudents.remove(s);
+        if (listOfStudents.contains(s)) {
+            listOfStudents.remove(s);
+            s.removeStudentFromModule(this);
+        }
     }
 
     public List<Student> getListOfStudents() {
@@ -47,12 +58,20 @@ public class Module {
         this.coursesAssociated = coursesAssociated;
     }
 
+    //add only if it doesn't contain already
     public void addCourse(Programme p) {
-        coursesAssociated.add(p);
+        if (!coursesAssociated.contains(p)) {
+            coursesAssociated.add(p);
+            p.addModule(this);
+        }
     }
 
+    // remove only if it contains
     public void removeCourse(Programme p) {
-        coursesAssociated.remove(p);
+        if (coursesAssociated.contains(p)) {
+            coursesAssociated.remove(p);
+            p.removeModuleFromCourse(this);
+        }
     }
 
     @Override
@@ -72,10 +91,27 @@ public class Module {
 
     @Override
     public String toString() {
-        return "Module{" +
-                "id='" + id  +
-                ", listOfStudents=" + listOfStudents +
-                ", coursesAssociated=" + coursesAssociated +
-                '}';
+        return
+                "module-Id=" + id +
+                        ", associated-courses =" + getListOfCourseNames() +
+                        " students-enrolled =" + getListOfStudentNames();
     }
+
+    private String getListOfCourseNames() {
+        StringBuilder toReturn = new StringBuilder();
+        for (Programme p : coursesAssociated) {
+            toReturn.append(p.getCourseName() + ",");
+        }
+        return toReturn.toString();
+    }
+
+    private String getListOfStudentNames() {
+        StringBuilder toReturn = new StringBuilder();
+        for (Student s : listOfStudents) {
+            toReturn.append(s.getUsername() + ",");
+        }
+        return toReturn.toString();
+    }
+
+
 }

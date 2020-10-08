@@ -7,16 +7,18 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class StudentTest {
-    private Student student1;
-    private Module ct417_module,ct556_module;
+    private Student student1,student2;
+    private Module ct417_module, ct556_module;
     private Programme bct_course;
 
     @Before
     public void setup() {
-        student1 = new Student("test1", 22, "12/10/1997", 123123);
+
         ct417_module = new Module("CT417");
         ct556_module = new Module("CT556");
-        bct_course = new Programme("BCT", new DateTime("2020-09-28T07:22:05Z"),new DateTime("2020-12-18T07:22:05Z"));
+        bct_course = new Programme("BCT", new DateTime("2020-09-28T07:22:05Z"), new DateTime("2020-12-18T07:22:05Z"));
+        student1 = new Student("test1", 22, "12/10/1997", 123123,bct_course);
+        student2 = new Student("test2", 22, "12/10/1997", 123123);
     }
 
     @Test
@@ -26,20 +28,19 @@ public class StudentTest {
         //When
         String actualUsername = student1.getUsername();
         //Then
-        assertEquals(expectedUsername,actualUsername);
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
-    public void check_student_enrolled_to_correct_module(){
+    public void check_student_enrolled_to_correct_module() {
         //Given
         student1.addModule(ct417_module);
         Module expectedModule = new Module("CT417");
-        ct417_module.addStudentsToModule(student1);
         //When
         List<Module> actualModules = student1.getModulesEnrolled();
         //Then
-        assert(actualModules.contains(expectedModule));
-        assert(ct417_module.getListOfStudents().contains(student1));
+        System.out.println(actualModules);
+        assertTrue(actualModules.contains(expectedModule));
     }
 
     @Test
@@ -54,7 +55,7 @@ public class StudentTest {
     }
 
     @Test
-    public void check_test_fails_when_student_not_enrolled(){
+    public void check_test_fails_when_student_not_enrolled() {
         //Given
         student1.addModule(ct417_module);
         Module expectedModule = new Module("CT4104");
@@ -65,21 +66,21 @@ public class StudentTest {
     }
 
     @Test
-    public void check_student_enrolled_to_correct_programme() {
+    public void check_true_student_enrolled_to_correct_programme() {
         //Given
-        student1.setCourse(bct_course);
-        Programme expectedCourse = new Programme("BCT", new DateTime("2020-09-28T07:22:05Z"),new DateTime("2020-12-18T07:22:05Z"));
+        student2.setCourse(bct_course);
+        Programme expectedCourse = new Programme("BCT", new DateTime("2020-09-28T07:22:05Z"), new DateTime("2020-12-18T07:22:05Z"));
         //When
         Programme actualCourse = student1.getCourse();
         //Then
-        assert(actualCourse.equals(expectedCourse));
+        assertTrue(actualCourse.equals(expectedCourse));
     }
 
     @Test
     public void check_test_fails_if_student_not_enrolled_to_programme() {
         //Given
-        student1.setCourse(bct_course);
-        Programme expectedCourse = new Programme("ECE", new DateTime("2020-09-28T07:22:05Z"),new DateTime("2020-12-18T07:22:05Z"));
+        student2.setCourse(bct_course);
+        Programme expectedCourse = new Programme("ECE", new DateTime("2020-09-28T07:22:05Z"), new DateTime("2020-12-18T07:22:05Z"));
         //When
         Programme actualCourse = student1.getCourse();
         //Then

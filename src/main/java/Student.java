@@ -15,7 +15,12 @@ public class Student {
         this.age = age;
         this.dob = dob;
         this.id = id;
-        modulesEnrolled = new ArrayList<Module>();
+        modulesEnrolled = new ArrayList<>();
+    }
+
+    public Student(String name, int age, String dob, int id, Programme course) {
+        this(name, age, dob, id);
+        this.course = course;
     }
 
     // Getters and Setters
@@ -65,12 +70,18 @@ public class Student {
 
     // Add more modules to list
     public void addModule(Module m) {
-        modulesEnrolled.add(m);
+        if (!modulesEnrolled.contains(m)) {
+            modulesEnrolled.add(m);
+            m.addStudentsToModule(this);
+        }
     }
 
     // remove certain modules from list
     public void removeStudentFromModule(Module m) {
-        modulesEnrolled.remove(m);
+        if (modulesEnrolled.contains(m)) {
+            modulesEnrolled.remove(m);
+            m.removeStudentFromModule(this);
+        }
     }
 
     public Programme getCourse() {
@@ -81,7 +92,7 @@ public class Student {
         this.course = course;
     }
 
-    public void removeFromCourse(){
+    public void removeFromCourse() {
         this.course = null;
     }
 
@@ -102,13 +113,20 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name +
-                ", age=" + age +
-                ", dob=" + dob +
-                ", id=" + id +
-                ", modulesEnrolled=" + modulesEnrolled +
-                ", course=" + course +
-                '}';
+        return "name =" + name +
+                ", age =" + age +
+                ", dob =" + dob +
+                ", id =" + id +
+                ", course = " + getCourse().getCourseName() +
+                ", modules-enrolled = " + getListOfModuleNames()
+                ;
+    }
+
+    private String getListOfModuleNames() {
+        StringBuilder toReturn = new StringBuilder();
+        for (Module m : modulesEnrolled) {
+            toReturn.append(m.getId() + ",");
+        }
+        return toReturn.toString();
     }
 }

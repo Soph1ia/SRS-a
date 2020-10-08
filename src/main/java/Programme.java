@@ -13,8 +13,8 @@ public class Programme {
 
     public Programme(String courseName, DateTime startDate, DateTime endDate) {
         this.courseName = courseName;
-        this.listOfModules = new ArrayList<Module>();
-        this.listOfStudents = new ArrayList<Student>();
+        this.listOfModules = new ArrayList<>();
+        this.listOfStudents = new ArrayList<>();
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -38,13 +38,17 @@ public class Programme {
     }
 
     public void addModule(Module m) {
-
-        listOfModules.add(m);
+        if (!listOfModules.contains(m)) {
+            listOfModules.add(m);
+            m.addCourse(this);
+        }
     }
 
     public void removeModuleFromCourse(Module m) {
-
-        listOfModules.remove(m);
+        if (listOfModules.contains(m)) {
+            listOfModules.remove(m);
+            m.removeCourse(this);
+        }
     }
 
     public List<Student> getListOfStudents() {
@@ -56,11 +60,19 @@ public class Programme {
     }
 
     public void addStudentsToCourse(Student s) {
-        listOfStudents.add(s);
+        if (!listOfStudents.contains(s)) {
+            listOfStudents.add(s);
+            s.setCourse(this);
+        }
+
     }
 
     public void removeStudentFromCourse(Student s) {
-        listOfStudents.remove(s);
+        if (listOfStudents.contains(s)) {
+            listOfStudents.remove(s);
+            s.removeFromCourse();
+        }
+
     }
 
     public DateTime getStartDate() {
@@ -96,12 +108,12 @@ public class Programme {
 
     @Override
     public String toString() {
-        return "Programme{" +
-                "courseName='" + courseName  +
-                ", listOfModules=" + listOfModules +
-                ", listOfStudents=" + listOfStudents +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return "Programme { " +
+                "Course-Name=" + courseName +
+                ", \n Associated-Modules=" + listOfModules +
+                ", \n Students-Registered=" + listOfStudents +
+                ",\n Start-Date=" + startDate.toLocalDate() +
+                ", End-Date=" + endDate.toLocalDate() +
+                " }";
     }
 }
